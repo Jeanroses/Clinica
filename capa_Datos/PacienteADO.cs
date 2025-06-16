@@ -43,10 +43,10 @@ namespace capa_Datos
             {
                 if (File.Exists(filePath))
                 {
-                    string json = File.ReadAllText(filePath);  // Leer el contenido del archivo
-                    return JsonConvert.DeserializeObject<List<Paciente>>(json) ?? new List<Paciente>();  // Deserializar el JSON a lista de pacientes
+                    string json = File.ReadAllText(filePath); // Leer el contenido del archivo
+                    return JsonConvert.DeserializeObject<List<Paciente>>(json) ?? new List<Paciente>(); // Deserializar el JSON a lista de pacientes
                 }
-                return new List<Paciente>();  // Si no existe el archivo, retornamos una lista vacía
+                return new List<Paciente>(); // Si no existe el archivo, retornamos una lista vacía
             }
             catch (Exception ex)
             {
@@ -54,7 +54,6 @@ namespace capa_Datos
                 return new List<Paciente>();
             }
         }
-
         // Actualizar los datos de un paciente en el archivo JSON
         public void ActualizarPaciente(Paciente paciente)
         {

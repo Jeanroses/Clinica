@@ -93,5 +93,24 @@ namespace capa_Logica
                 Console.WriteLine($"Error al ver la cola: {ex.Message}");
             }
         }
+
+        public List<Paciente> ObtenerPacientesOrdenadosPorPrioridad()
+        {
+            try
+            {
+                // Extraer los pacientes de la cola y ordenarlos por prioridad
+                var pacientesOrdenados = colaAtencion.UnorderedItems
+                    .OrderByDescending(p => p.Priority) // Ordenar por prioridad (Urgente > Media > Baja)
+                    .Select(p => p.Element) // Obtener el elemento Paciente
+                    .ToList();
+
+                return pacientesOrdenados;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener pacientes ordenados por prioridad: {ex.Message}");
+                return new List<Paciente>(); // Retornar lista vacía en caso de error
+            }
+        }
     }
 }

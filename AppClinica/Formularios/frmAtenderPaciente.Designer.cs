@@ -47,6 +47,8 @@
             groupBox2 = new GroupBox();
             txtSintomas = new TextBox();
             label7 = new Label();
+            btnComenzarAtencion = new Button();
+            btnFinalizarAtencion = new Button();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvDatos).BeginInit();
             groupBox2.SuspendLayout();
@@ -55,7 +57,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(315, 31);
+            label1.Location = new Point(373, 29);
             label1.Name = "label1";
             label1.Size = new Size(286, 31);
             label1.TabIndex = 0;
@@ -83,7 +85,7 @@
             txtBaja.Location = new Point(148, 404);
             txtBaja.Name = "txtBaja";
             txtBaja.ReadOnly = true;
-            txtBaja.Size = new Size(166, 38);
+            txtBaja.Size = new Size(176, 38);
             txtBaja.TabIndex = 6;
             // 
             // txtMedia
@@ -177,6 +179,7 @@
             btnAtender.TabIndex = 5;
             btnAtender.Text = "Atender";
             btnAtender.UseVisualStyleBackColor = true;
+            btnAtender.Click += btnAtender_Click;
             // 
             // btnCancelar
             // 
@@ -186,6 +189,7 @@
             btnCancelar.TabIndex = 6;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.Click += btnCancelar_Click;
             // 
             // btnCerrar
             // 
@@ -195,6 +199,7 @@
             btnCerrar.TabIndex = 7;
             btnCerrar.Text = "Cerrar";
             btnCerrar.UseVisualStyleBackColor = true;
+            btnCerrar.Click += btnCerrar_Click;
             // 
             // txtEdad
             // 
@@ -218,7 +223,7 @@
             groupBox2.Controls.Add(label6);
             groupBox2.Location = new Point(502, 78);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(490, 375);
+            groupBox2.Size = new Size(506, 343);
             groupBox2.TabIndex = 9;
             groupBox2.TabStop = false;
             groupBox2.Text = "Datos cita";
@@ -240,11 +245,33 @@
             label7.TabIndex = 9;
             label7.Text = "Sintomas:";
             // 
+            // btnComenzarAtencion
+            // 
+            btnComenzarAtencion.Location = new Point(502, 436);
+            btnComenzarAtencion.Name = "btnComenzarAtencion";
+            btnComenzarAtencion.Size = new Size(157, 77);
+            btnComenzarAtencion.TabIndex = 11;
+            btnComenzarAtencion.Text = "Comenzar Atención";
+            btnComenzarAtencion.UseVisualStyleBackColor = true;
+            btnComenzarAtencion.Click += btnComenzarAtencion_Click;
+            // 
+            // btnFinalizarAtencion
+            // 
+            btnFinalizarAtencion.Location = new Point(848, 439);
+            btnFinalizarAtencion.Name = "btnFinalizarAtencion";
+            btnFinalizarAtencion.Size = new Size(160, 74);
+            btnFinalizarAtencion.TabIndex = 12;
+            btnFinalizarAtencion.Text = "Finalizar Atención";
+            btnFinalizarAtencion.UseVisualStyleBackColor = true;
+            btnFinalizarAtencion.Click += btnFinalizarAtencion_Click;
+            // 
             // frmAtenderPaciente
             // 
             AutoScaleDimensions = new SizeF(14F, 31F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1020, 561);
+            Controls.Add(btnFinalizarAtencion);
+            Controls.Add(btnComenzarAtencion);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Controls.Add(label1);
@@ -252,6 +279,7 @@
             Margin = new Padding(5);
             Name = "frmAtenderPaciente";
             Text = "frmAtenderPaciente";
+            Load += frmAtenderPaciente_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvDatos).EndInit();
@@ -282,5 +310,7 @@
         private TextBox txtBaja;
         private TextBox txtMedia;
         private TextBox txtUrgente;
+        private Button btnComenzarAtencion;
+        private Button btnFinalizarAtencion;
     }
 }
