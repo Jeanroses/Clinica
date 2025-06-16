@@ -28,12 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPrincipal));
             menuStrip1 = new MenuStrip();
             mantenimientoToolStripMenuItem = new ToolStripMenuItem();
             registrarPacienteToolStripMenuItem = new ToolStripMenuItem();
             atenciónToolStripMenuItem = new ToolStripMenuItem();
             atenderPacienteToolStripMenuItem = new ToolStripMenuItem();
+            pictureBox1 = new PictureBox();
             menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // menuStrip1
@@ -74,11 +77,21 @@
             atenderPacienteToolStripMenuItem.Text = "Atender Paciente";
             atenderPacienteToolStripMenuItem.Click += atenderPacienteToolStripMenuItem_Click;
             // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(0, 31);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(932, 455);
+            pictureBox1.TabIndex = 1;
+            pictureBox1.TabStop = false;
+            // 
             // frmPrincipal
             // 
             AutoScaleDimensions = new SizeF(14F, 31F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(932, 483);
+            Controls.Add(pictureBox1);
             Controls.Add(menuStrip1);
             Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             MainMenuStrip = menuStrip1;
@@ -89,6 +102,7 @@
             Load += frmPrincipal_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -100,5 +114,6 @@
         private ToolStripMenuItem registrarPacienteToolStripMenuItem;
         private ToolStripMenuItem atenciónToolStripMenuItem;
         private ToolStripMenuItem atenderPacienteToolStripMenuItem;
+        private PictureBox pictureBox1;
     }
 }
