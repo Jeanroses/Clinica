@@ -7,7 +7,7 @@ namespace AppClinica
         public frmPrincipal()
         {
             InitializeComponent();
-            this.StartPosition = FormStartPosition.CenterScreen; 
+            this.StartPosition = FormStartPosition.CenterScreen;
 
         }
 
@@ -19,13 +19,19 @@ namespace AppClinica
 
         private void atenderPacienteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmAtenderPaciente frmAtenderPaciente = new frmAtenderPaciente();
-            frmAtenderPaciente.ShowDialog();
+            frmAtenderPaciente ventana = new frmAtenderPaciente();
+            ventana.ShowDialog();
         }
 
         private void frmPrincipal_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void estadosDeLosInformesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmInforme ventana = new frmInforme();
+            ventana.ShowDialog();
         }
     }
 }

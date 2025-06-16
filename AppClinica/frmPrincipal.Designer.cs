@@ -34,6 +34,8 @@
             registrarPacienteToolStripMenuItem = new ToolStripMenuItem();
             atenciónToolStripMenuItem = new ToolStripMenuItem();
             atenderPacienteToolStripMenuItem = new ToolStripMenuItem();
+            informesToolStripMenuItem = new ToolStripMenuItem();
+            estadosDeLosInformesToolStripMenuItem = new ToolStripMenuItem();
             pictureBox1 = new PictureBox();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -42,7 +44,7 @@
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { mantenimientoToolStripMenuItem, atenciónToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { mantenimientoToolStripMenuItem, atenciónToolStripMenuItem, informesToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(932, 39);
@@ -80,6 +82,22 @@
             atenderPacienteToolStripMenuItem.Size = new Size(284, 36);
             atenderPacienteToolStripMenuItem.Text = "Atender Paciente";
             atenderPacienteToolStripMenuItem.Click += atenderPacienteToolStripMenuItem_Click;
+            // 
+            // informesToolStripMenuItem
+            // 
+            informesToolStripMenuItem.BackColor = SystemColors.ActiveCaption;
+            informesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { estadosDeLosInformesToolStripMenuItem });
+            informesToolStripMenuItem.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            informesToolStripMenuItem.Name = "informesToolStripMenuItem";
+            informesToolStripMenuItem.Size = new Size(124, 35);
+            informesToolStripMenuItem.Text = "Informes";
+            // 
+            // estadosDeLosInformesToolStripMenuItem
+            // 
+            estadosDeLosInformesToolStripMenuItem.Name = "estadosDeLosInformesToolStripMenuItem";
+            estadosDeLosInformesToolStripMenuItem.Size = new Size(354, 36);
+            estadosDeLosInformesToolStripMenuItem.Text = "Estados de los informes";
+            estadosDeLosInformesToolStripMenuItem.Click += estadosDeLosInformesToolStripMenuItem_Click;
             // 
             // pictureBox1
             // 
@@ -119,5 +137,7 @@
         private ToolStripMenuItem atenciónToolStripMenuItem;
         private ToolStripMenuItem atenderPacienteToolStripMenuItem;
         private PictureBox pictureBox1;
+        private ToolStripMenuItem informesToolStripMenuItem;
+        private ToolStripMenuItem estadosDeLosInformesToolStripMenuItem;
     }
 }

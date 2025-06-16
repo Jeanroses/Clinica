@@ -277,6 +277,8 @@
             Controls.Add(label1);
             Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             Margin = new Padding(5);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "frmAtenderPaciente";
             Text = "frmAtenderPaciente";
             Load += frmAtenderPaciente_Load;

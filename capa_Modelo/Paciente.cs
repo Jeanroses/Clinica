@@ -13,5 +13,6 @@ namespace capa_Modelo
         public int Edad { get; set; }
         public string? Sintomas { get; set; }
         public EstadoPrioridad Prioridad { get; set; }
+        public string? Estado { get; set; }
     }
 }

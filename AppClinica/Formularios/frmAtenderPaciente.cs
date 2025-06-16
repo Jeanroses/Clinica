@@ -60,6 +60,11 @@ namespace AppClinica.Formularios
                 {
                     dgvDatos.Columns["Id"].Visible = false; // Ocultar columna ID si existe
                 }
+
+                if (dgvDatos.Columns.Contains("Estado"))
+                {
+                    dgvDatos.Columns["Estado"].Visible = true; // Mostrar columna Estado
+                }
             }
             catch (Exception ex)
             {
@@ -102,6 +107,13 @@ namespace AppClinica.Formularios
                 var pacienteAtendido = datosCita.First();
                 MessageBox.Show($"Paciente atendido: {pacienteAtendido.Nombre}", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                // Registrar como "Atendido"
+                RegistrarAtencionEnArchivo(pacienteAtendido, "Atendido");
+
+                // Deshabilitar los botones "Cancelar" y "Atender"
+                btnCancelar.Enabled = false;
+                btnAtender.Enabled = false;
+
                 // Habilitar el botón "Finalizar Atención"
                 btnFinalizarAtencion.Enabled = true;
             }
@@ -118,8 +130,8 @@ namespace AppClinica.Formularios
                 var pacienteCancelado = datosCita.First();
                 MessageBox.Show($"Atención cancelada para: {pacienteCancelado.Nombre}", "Cancelación", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Registrar atención en archivo como cancelada
-                RegistrarAtencionEnArchivo(pacienteCancelado);
+                // Registrar como "Cancelado"
+                RegistrarAtencionEnArchivo(pacienteCancelado, "Cancelado");
 
                 // Remover paciente de datos de cita
                 datosCita.Remove(pacienteCancelado);
@@ -147,6 +159,13 @@ namespace AppClinica.Formularios
                 // Actualizar DataGridView y contadores
                 CargarPacientesEnCola();
                 ActualizarContadores();
+
+                // Deshabilitar el botón "Cancelar" y "Atender"
+                btnCancelar.Enabled = false;
+                btnAtender.Enabled = false;
+
+                // Habilitar solo el botón "Finalizar Atención"
+                btnFinalizarAtencion.Enabled = true;
 
                 // Deshabilitar botones si no hay más pacientes en atención
                 if (datosCita.Count == 0)
@@ -179,7 +198,7 @@ namespace AppClinica.Formularios
             btnFinalizarAtencion.Enabled = false;
         }
 
-        private void RegistrarAtencionEnArchivo(Paciente paciente)
+        private void RegistrarAtencionEnArchivo(Paciente paciente, string estado)
         {
             try
             {
@@ -192,6 +211,9 @@ namespace AppClinica.Formularios
                     string contenido = System.IO.File.ReadAllText(rutaArchivo);
                     atenciones = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Paciente>>(contenido) ?? new List<Paciente>();
                 }
+
+                // Asignar estado al paciente
+                paciente.Estado = estado;
 
                 // Agregar nueva atención
                 atenciones.Add(paciente);
@@ -214,8 +236,8 @@ namespace AppClinica.Formularios
                 var pacienteAtendido = datosCita.First();
                 datosCita.Remove(pacienteAtendido);
 
-                // Registrar atención en archivo
-                RegistrarAtencionEnArchivo(pacienteAtendido);
+                // Registrar atención en archivo con el estado "Finalizado"
+                RegistrarAtencionEnArchivo(pacienteAtendido, "Finalizado");
 
                 MessageBox.Show($"Atención finalizada para: {pacienteAtendido.Nombre}", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
