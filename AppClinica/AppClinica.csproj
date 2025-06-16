@@ -13,6 +13,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\capa_Datos\capa_Datos.csproj" />
+    <ProjectReference Include="..\capa_Logica\capa_Logica.csproj" />
+    <ProjectReference Include="..\capa_Modelo\capa_Modelo.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

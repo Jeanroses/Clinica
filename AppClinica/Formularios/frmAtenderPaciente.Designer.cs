@@ -30,23 +30,23 @@
         {
             label1 = new Label();
             groupBox1 = new GroupBox();
+            txtBaja = new TextBox();
+            txtMedia = new TextBox();
+            txtUrgente = new TextBox();
+            label5 = new Label();
+            label4 = new Label();
+            label3 = new Label();
             dgvDatos = new DataGridView();
             label2 = new Label();
             txtPaciente = new TextBox();
-            label3 = new Label();
-            label4 = new Label();
-            label5 = new Label();
             label6 = new Label();
             btnAtender = new Button();
             btnCancelar = new Button();
             btnCerrar = new Button();
             txtEdad = new TextBox();
             groupBox2 = new GroupBox();
-            label7 = new Label();
             txtSintomas = new TextBox();
-            txtUrgente = new TextBox();
-            txtMedia = new TextBox();
-            txtBaja = new TextBox();
+            label7 = new Label();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvDatos).BeginInit();
             groupBox2.SuspendLayout();
@@ -78,6 +78,57 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Pacientes en cola";
             // 
+            // txtBaja
+            // 
+            txtBaja.Location = new Point(148, 404);
+            txtBaja.Name = "txtBaja";
+            txtBaja.ReadOnly = true;
+            txtBaja.Size = new Size(166, 38);
+            txtBaja.TabIndex = 6;
+            // 
+            // txtMedia
+            // 
+            txtMedia.Location = new Point(150, 358);
+            txtMedia.Name = "txtMedia";
+            txtMedia.ReadOnly = true;
+            txtMedia.Size = new Size(174, 38);
+            txtMedia.TabIndex = 5;
+            // 
+            // txtUrgente
+            // 
+            txtUrgente.Location = new Point(150, 314);
+            txtUrgente.Name = "txtUrgente";
+            txtUrgente.ReadOnly = true;
+            txtUrgente.Size = new Size(174, 38);
+            txtUrgente.TabIndex = 4;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(76, 404);
+            label5.Name = "label5";
+            label5.Size = new Size(66, 31);
+            label5.TabIndex = 3;
+            label5.Text = "Baja:";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(55, 361);
+            label4.Name = "label4";
+            label4.Size = new Size(87, 31);
+            label4.TabIndex = 2;
+            label4.Text = "Media:";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(25, 312);
+            label3.Name = "label3";
+            label3.Size = new Size(117, 31);
+            label3.TabIndex = 1;
+            label3.Text = "Urgentes:";
+            // 
             // dgvDatos
             // 
             dgvDatos.AllowUserToAddRows = false;
@@ -88,6 +139,7 @@
             dgvDatos.Name = "dgvDatos";
             dgvDatos.ReadOnly = true;
             dgvDatos.RowHeadersWidth = 51;
+            dgvDatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvDatos.Size = new Size(406, 257);
             dgvDatos.TabIndex = 0;
             // 
@@ -107,33 +159,6 @@
             txtPaciente.ReadOnly = true;
             txtPaciente.Size = new Size(326, 38);
             txtPaciente.TabIndex = 3;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(25, 312);
-            label3.Name = "label3";
-            label3.Size = new Size(117, 31);
-            label3.TabIndex = 1;
-            label3.Text = "Urgentes:";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(55, 361);
-            label4.Name = "label4";
-            label4.Size = new Size(87, 31);
-            label4.TabIndex = 2;
-            label4.Text = "Media:";
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(76, 404);
-            label5.Name = "label5";
-            label5.Size = new Size(66, 31);
-            label5.TabIndex = 3;
-            label5.Text = "Baja:";
             // 
             // label6
             // 
@@ -198,15 +223,6 @@
             groupBox2.TabStop = false;
             groupBox2.Text = "Datos cita";
             // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(12, 171);
-            label7.Name = "label7";
-            label7.Size = new Size(120, 31);
-            label7.TabIndex = 9;
-            label7.Text = "Sintomas:";
-            // 
             // txtSintomas
             // 
             txtSintomas.Location = new Point(138, 168);
@@ -215,29 +231,14 @@
             txtSintomas.Size = new Size(326, 38);
             txtSintomas.TabIndex = 10;
             // 
-            // txtUrgente
+            // label7
             // 
-            txtUrgente.Location = new Point(150, 314);
-            txtUrgente.Name = "txtUrgente";
-            txtUrgente.ReadOnly = true;
-            txtUrgente.Size = new Size(80, 38);
-            txtUrgente.TabIndex = 4;
-            // 
-            // txtMedia
-            // 
-            txtMedia.Location = new Point(150, 358);
-            txtMedia.Name = "txtMedia";
-            txtMedia.ReadOnly = true;
-            txtMedia.Size = new Size(80, 38);
-            txtMedia.TabIndex = 5;
-            // 
-            // txtBaja
-            // 
-            txtBaja.Location = new Point(148, 404);
-            txtBaja.Name = "txtBaja";
-            txtBaja.ReadOnly = true;
-            txtBaja.Size = new Size(82, 38);
-            txtBaja.TabIndex = 6;
+            label7.AutoSize = true;
+            label7.Location = new Point(12, 171);
+            label7.Name = "label7";
+            label7.Size = new Size(120, 31);
+            label7.TabIndex = 9;
+            label7.Text = "Sintomas:";
             // 
             // frmAtenderPaciente
             // 
@@ -248,7 +249,7 @@
             Controls.Add(groupBox1);
             Controls.Add(label1);
             Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            Margin = new Padding(5, 5, 5, 5);
+            Margin = new Padding(5);
             Name = "frmAtenderPaciente";
             Text = "frmAtenderPaciente";
             groupBox1.ResumeLayout(false);

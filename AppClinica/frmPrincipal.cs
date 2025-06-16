@@ -7,6 +7,7 @@ namespace AppClinica
         public frmPrincipal()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen; 
 
         }
 
