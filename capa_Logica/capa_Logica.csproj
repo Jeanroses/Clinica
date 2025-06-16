@@ -7,4 +7,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\capa_Modelo\capa_Modelo.csproj" />
+  </ItemGroup>
+
 </Project>
