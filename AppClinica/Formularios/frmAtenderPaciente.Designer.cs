@@ -49,6 +49,7 @@
             label7 = new Label();
             btnComenzarAtencion = new Button();
             btnFinalizarAtencion = new Button();
+            lblTiempoEstimado = new Label();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvDatos).BeginInit();
             groupBox2.SuspendLayout();
@@ -57,7 +58,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(373, 29);
+            label1.Location = new Point(722, 9);
             label1.Name = "label1";
             label1.Size = new Size(286, 31);
             label1.TabIndex = 0;
@@ -265,11 +266,21 @@
             btnFinalizarAtencion.UseVisualStyleBackColor = true;
             btnFinalizarAtencion.Click += btnFinalizarAtencion_Click;
             // 
+            // lblTiempoEstimado
+            // 
+            lblTiempoEstimado.AutoSize = true;
+            lblTiempoEstimado.Location = new Point(32, 28);
+            lblTiempoEstimado.Name = "lblTiempoEstimado";
+            lblTiempoEstimado.Size = new Size(20, 31);
+            lblTiempoEstimado.TabIndex = 13;
+            lblTiempoEstimado.Text = ".";
+            // 
             // frmAtenderPaciente
             // 
             AutoScaleDimensions = new SizeF(14F, 31F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1020, 561);
+            Controls.Add(lblTiempoEstimado);
             Controls.Add(btnFinalizarAtencion);
             Controls.Add(btnComenzarAtencion);
             Controls.Add(groupBox2);
@@ -314,5 +325,6 @@
         private TextBox txtUrgente;
         private Button btnComenzarAtencion;
         private Button btnFinalizarAtencion;
+        private Label lblTiempoEstimado;
     }
 }

@@ -12,14 +12,15 @@ namespace capa_Datos
 {
     public class PacienteADO
     {
-        private string filePath = "pacientes.json";  // Ruta del archivo JSON donde se almacenan los pacientes
+        private string filePath = "pacientes.json";  
 
-        // Crear un paciente y guardarlo en el archivo JSON
+       
         public void CrearPaciente(Paciente paciente)
         {
-            List<Paciente> pacientes = ObtenerPacientes();  // Obtener lista actual de pacientes
+            
+            List<Paciente> pacientes = ObtenerPacientes();  
 
-            pacientes.Add(paciente);  // Agregar el nuevo paciente a la lista
+            pacientes.Add(paciente);  
 
             try
             {

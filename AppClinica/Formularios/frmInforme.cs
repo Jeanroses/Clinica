@@ -27,7 +27,7 @@ namespace AppClinica.Formularios
             // Cargar los estados en el ComboBox
             cboCitas.Items.Add("Atendido");
             cboCitas.Items.Add("Cancelado");
-            cboCitas.SelectedIndex = 0; // Seleccionar el primer estado por defecto
+            cboCitas.SelectedIndex = 0; 
 
             // Cargar los pacientes desde el archivo
             CargarPacientes();

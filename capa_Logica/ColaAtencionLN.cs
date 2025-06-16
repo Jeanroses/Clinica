@@ -13,6 +13,7 @@ namespace capa_Logica
             colaAtencion = new PriorityQueue<Paciente, EstadoPrioridad>();
         }
 
+        // Se agrega al paciente a la cola de atención con su prioridad asignada
         public void AgregarPaciente(Paciente paciente)
         {
             try
@@ -28,6 +29,7 @@ namespace capa_Logica
             }
         }
 
+        // Gestion de la cola de atención
         public void GestionarCola()
         {
             try
@@ -48,6 +50,7 @@ namespace capa_Logica
             }
         }
 
+        // Se cancela el turno de un paciente específico
         public void CancelarTurno(int idPaciente)
         {
             try
@@ -78,6 +81,7 @@ namespace capa_Logica
             }
         }
 
+        // Ver el estado actual de la cola de atención
         public void VerColaDeAtencion()
         {
             try
@@ -100,8 +104,8 @@ namespace capa_Logica
     {
         // Extraer los pacientes de la cola y ordenarlos por prioridad
         var pacientesOrdenados = colaAtencion.UnorderedItems
-            .OrderByDescending(p => p.Priority) // Ordenar por prioridad (Urgente > Media > Baja)
-            .Select(p => p.Element) // Obtener el elemento Paciente
+            .OrderByDescending(p => p.Priority) 
+            .Select(p => p.Element) 
             .ToList();
 
         return pacientesOrdenados;
@@ -109,7 +113,7 @@ namespace capa_Logica
     catch (Exception ex)
     {
         Console.WriteLine($"Error al obtener pacientes ordenados por prioridad: {ex.Message}");
-        return new List<Paciente>(); // Retornar lista vacía en caso de error
+        return new List<Paciente>(); 
     }
 }
     }

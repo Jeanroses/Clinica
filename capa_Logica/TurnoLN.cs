@@ -23,7 +23,7 @@ namespace capa_Logica
             {
                 Turno nuevoTurno = new Turno
                 {
-                    Id = turnos.Count + 1, // Incrementa el ID del turno
+                    Id = turnos.Count + 1, 
                     Prioridad = paciente.Prioridad,
                     EstaActivo = true
                 };
@@ -42,12 +42,12 @@ namespace capa_Logica
         {
             try
             {
-                return turnos.FindAll(t => t.EstaActivo); // Filtra solo los turnos activos
+                return turnos.FindAll(t => t.EstaActivo);
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error al obtener turnos activos: {ex.Message}");
-                return new List<Turno>(); // Retorna una lista vacía en caso de error
+                return new List<Turno>(); 
             }
         }
 

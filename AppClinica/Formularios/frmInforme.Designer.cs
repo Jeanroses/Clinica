@@ -51,6 +51,7 @@
             dgvInforme.AllowUserToAddRows = false;
             dgvInforme.AllowUserToDeleteRows = false;
             dgvInforme.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvInforme.BackgroundColor = SystemColors.ActiveCaption;
             dgvInforme.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvInforme.EditMode = DataGridViewEditMode.EditProgrammatically;
             dgvInforme.Location = new Point(54, 144);
@@ -83,6 +84,7 @@
             // 
             // cboCitas
             // 
+            cboCitas.DropDownStyle = ComboBoxStyle.DropDownList;
             cboCitas.FormattingEnabled = true;
             cboCitas.Location = new Point(174, 96);
             cboCitas.Name = "cboCitas";

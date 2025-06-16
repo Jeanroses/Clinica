@@ -50,7 +50,7 @@ namespace AppClinica.Formularios
                 // Crear el objeto Paciente
                 Paciente nuevoPaciente = new Paciente
                 {
-                    Id = pacienteADO.ObtenerPacientes().Count + 1, // Generar un ID único
+                    Id = pacienteADO.ObtenerPacientes().Count + 1, 
                     Nombre = txtNombres.Text.Trim(),
                     Edad = edad,
                     Sintomas = txtSintoma.Text.Trim()

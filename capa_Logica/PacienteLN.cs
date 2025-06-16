@@ -24,11 +24,11 @@ namespace capa_Logica
                 if (string.IsNullOrEmpty(paciente.Sintomas))
                 {
                     Console.WriteLine($"El paciente {paciente.Nombre} no tiene síntomas especificados.");
-                    paciente.Prioridad = EstadoPrioridad.Baja; // Asignar prioridad baja por defecto
+                    paciente.Prioridad = EstadoPrioridad.Baja; 
                     return;
                 }
 
-                // Clasificación de prioridades con lógica mejorada
+                // Clasificación de prioridades 
                 var sintomas = paciente.Sintomas.ToLower();
                 if (sintomas.Contains("fiebre alta") || sintomas.Contains("sangrado") || sintomas.Contains("convulsiones") || sintomas.Contains("sangrado nasal"))
                 {
@@ -44,7 +44,7 @@ namespace capa_Logica
                 }
                 else
                 {
-                    paciente.Prioridad = EstadoPrioridad.Baja; // Por defecto, asignar prioridad baja
+                    paciente.Prioridad = EstadoPrioridad.Baja;  
                 }
             }
             catch (Exception ex)
@@ -53,13 +53,13 @@ namespace capa_Logica
             }
         }
 
-        // Agregar paciente a la cola con manejo de errores
+        // Agregar paciente a la cola 
         public void AgregarPaciente(Paciente paciente)
         {
             try
             {
                 AsignarPrioridad(paciente);
-                colaAtencion.Enqueue(paciente, paciente.Prioridad); // Añade el paciente a la cola de atención
+                colaAtencion.Enqueue(paciente, paciente.Prioridad); // Se añade el paciente a la cola de atención
                 Console.WriteLine($"Paciente {paciente.Nombre} agregado a la cola con prioridad {paciente.Prioridad}.");
             }
             catch (Exception ex)
@@ -68,7 +68,7 @@ namespace capa_Logica
             }
         }
 
-        // Gestionar la cola de atención con manejo de errores
+        // Gestionar la cola 
         public void GestionarCola()
         {
             try
@@ -89,7 +89,7 @@ namespace capa_Logica
             }
         }
 
-        // Cancelación de turno con manejo de errores
+        // Cancelación de turno
         public void CancelarTurno(int idPaciente)
         {
             try

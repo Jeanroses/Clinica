@@ -12,15 +12,15 @@ namespace capa_Datos
 {
     public class TurnoADO
     {
-        private string filePath = "turnos.json";  // Ruta del archivo JSON donde se almacenan los turnos
+        private string filePath = "turnos.json";  
 
-        // Crear un turno y guardarlo en el archivo JSON
+        
         public void CrearTurno(Turno turno, int pacienteId)
         {
-            List<Turno> turnos = ObtenerTurnos();  // Obtener lista actual de turnos
+            List<Turno> turnos = ObtenerTurnos(); 
 
-            turno.Id = turnos.Count + 1;  // Asignar un nuevo ID al turno
-            turnos.Add(turno);  // Agregar el nuevo turno a la lista
+            turno.Id = turnos.Count + 1;  
+            turnos.Add(turno);  
 
             try
             {
@@ -87,8 +87,8 @@ namespace capa_Datos
             var turnoEliminado = turnos.Find(t => t.Id == idTurno);
             if (turnoEliminado != null)
             {
-                turnos.Remove(turnoEliminado);  // Eliminar el turno de la lista
-                GuardarTurnos(turnos);  // Guardar la lista actualizada en el archivo
+                turnos.Remove(turnoEliminado);  
+                GuardarTurnos(turnos);  
                 Console.WriteLine($"Turno con ID {idTurno} eliminado.");
             }
             else

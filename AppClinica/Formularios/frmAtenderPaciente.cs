@@ -13,6 +13,8 @@ namespace AppClinica.Formularios
         private ColaAtencionLN colaAtencionLN;
         private List<Paciente> pacientesEnCola;
         private List<Paciente> datosCita;
+        private System.Windows.Forms.Timer timer;
+        private int tiempoRestante;
 
         public frmAtenderPaciente()
         {
@@ -21,6 +23,11 @@ namespace AppClinica.Formularios
             colaAtencionLN = new ColaAtencionLN();
             pacientesEnCola = new List<Paciente>();
             datosCita = new List<Paciente>();
+
+           
+            timer = new System.Windows.Forms.Timer();
+            timer.Interval = 10000; 
+            timer.Tick += Timer_Tick;
         }
 
         private void frmAtenderPaciente_Load(object sender, EventArgs e)
@@ -28,6 +35,24 @@ namespace AppClinica.Formularios
             CargarPacientesEnCola();
             ActualizarContadores();
             DeshabilitarBotonesAtencion();
+
+           
+            tiempoRestante = pacientesEnCola.Count * 10; // 10 minutos por paciente
+            timer.Start();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            if (tiempoRestante > 0)
+            {
+                tiempoRestante--; // Reducir el tiempo restante
+                lblTiempoEstimado.Text = $"Tiempo estimado de espera: {tiempoRestante} minutos";
+            }
+            else
+            {
+                timer.Stop(); // Detener el temporizador si el tiempo llega a 0
+                lblTiempoEstimado.Text = "No hay pacientes en espera.";
+            }
         }
 
         private void CargarPacientesEnCola()
@@ -37,7 +62,7 @@ namespace AppClinica.Formularios
                 PacienteADO pacienteADO = new PacienteADO();
                 pacientesEnCola = pacienteADO.ObtenerPacientes();
 
-                // Filtrar pacientes que ya fueron atendidos
+             
                 string rutaArchivo = "atenciones.json";
                 if (System.IO.File.Exists(rutaArchivo))
                 {
@@ -46,37 +71,48 @@ namespace AppClinica.Formularios
                     pacientesEnCola = pacientesEnCola.Where(p => !pacientesAtendidos.Any(a => a.Id == p.Id)).ToList();
                 }
 
-                // Ordenar pacientes por prioridad (Urgente > Media > Baja) y luego por orden de llegada
+                
                 pacientesEnCola = pacientesEnCola
-                    .OrderByDescending(p => p.Prioridad) // Prioridad (Urgente > Media > Baja)
-                    .ThenBy(p => p.Id) // Orden de llegada
+                    .OrderByDescending(p => p.Prioridad)
+                    .ThenBy(p => p.Id)
                     .ToList();
 
-                // Actualizar el DataGridView
+               
                 dgvDatos.DataSource = null;
                 dgvDatos.DataSource = pacientesEnCola;
 
                 if (dgvDatos.Columns.Contains("Id"))
                 {
-                    dgvDatos.Columns["Id"].Visible = false; // Ocultar columna ID si existe
+                    dgvDatos.Columns["Id"].Visible = false;
                 }
 
                 if (dgvDatos.Columns.Contains("Estado"))
                 {
-                    dgvDatos.Columns["Estado"].Visible = true; // Mostrar columna Estado
+                    dgvDatos.Columns["Estado"].Visible = true;
                 }
+
+                
+                ActualizarTiempoEstimado();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al cargar pacientes: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void ActualizarContadores()
         {
             txtUrgente.Text = pacientesEnCola.Count(p => p.Prioridad == EstadoPrioridad.Urgente).ToString();
             txtMedia.Text = pacientesEnCola.Count(p => p.Prioridad == EstadoPrioridad.Media).ToString();
             txtBaja.Text = pacientesEnCola.Count(p => p.Prioridad == EstadoPrioridad.Baja).ToString();
         }
+
+        private void ActualizarTiempoEstimado()
+        {
+            tiempoRestante = pacientesEnCola.Count * 10; 
+            lblTiempoEstimado.Text = $"Tiempo estimado de espera: {tiempoRestante} minutos";
+        }
+
         private void btnComenzarAtencion_Click(object sender, EventArgs e)
         {
             if (pacientesEnCola.Count > 0)
@@ -85,13 +121,14 @@ namespace AppClinica.Formularios
                 datosCita.Add(pacienteAtendido);
                 pacientesEnCola.Remove(pacienteAtendido);
 
-                // Mostrar datos del paciente en el panel de atención
+               
                 txtPaciente.Text = pacienteAtendido.Nombre;
                 txtEdad.Text = pacienteAtendido.Edad.ToString();
                 txtSintomas.Text = pacienteAtendido.Sintomas;
 
                 CargarPacientesEnCola();
                 ActualizarContadores();
+                ActualizarTiempoEstimado(); 
                 HabilitarBotonesAtencion();
             }
             else
@@ -107,14 +144,11 @@ namespace AppClinica.Formularios
                 var pacienteAtendido = datosCita.First();
                 MessageBox.Show($"Paciente atendido: {pacienteAtendido.Nombre}", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Registrar como "Atendido"
                 RegistrarAtencionEnArchivo(pacienteAtendido, "Atendido");
 
-                // Deshabilitar los botones "Cancelar" y "Atender"
                 btnCancelar.Enabled = false;
                 btnAtender.Enabled = false;
 
-                // Habilitar el botón "Finalizar Atención"
                 btnFinalizarAtencion.Enabled = true;
             }
             else
@@ -130,27 +164,23 @@ namespace AppClinica.Formularios
                 var pacienteCancelado = datosCita.First();
                 MessageBox.Show($"Atención cancelada para: {pacienteCancelado.Nombre}", "Cancelación", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Registrar como "Cancelado"
                 RegistrarAtencionEnArchivo(pacienteCancelado, "Cancelado");
 
-                // Remover paciente de datos de cita
                 datosCita.Remove(pacienteCancelado);
 
-                // Actualizar la cola y cargar el siguiente paciente
                 if (pacientesEnCola.Count > 0)
                 {
                     var siguientePaciente = pacientesEnCola.First();
                     datosCita.Add(siguientePaciente);
                     pacientesEnCola.Remove(siguientePaciente);
 
-                    // Mostrar datos del siguiente paciente en el panel de atención
                     txtPaciente.Text = siguientePaciente.Nombre;
                     txtEdad.Text = siguientePaciente.Edad.ToString();
                     txtSintomas.Text = siguientePaciente.Sintomas;
                 }
                 else
                 {
-                    // Limpiar panel de atención si no hay más pacientes
+                    // Limpiar panel
                     txtPaciente.Text = string.Empty;
                     txtEdad.Text = string.Empty;
                     txtSintomas.Text = string.Empty;
@@ -160,14 +190,11 @@ namespace AppClinica.Formularios
                 CargarPacientesEnCola();
                 ActualizarContadores();
 
-                // Deshabilitar el botón "Cancelar" y "Atender"
                 btnCancelar.Enabled = false;
                 btnAtender.Enabled = false;
 
-                // Habilitar solo el botón "Finalizar Atención"
                 btnFinalizarAtencion.Enabled = true;
 
-                // Deshabilitar botones si no hay más pacientes en atención
                 if (datosCita.Count == 0)
                 {
                     DeshabilitarBotonesAtencion();
@@ -228,7 +255,6 @@ namespace AppClinica.Formularios
             }
         }
 
-
         private void btnFinalizarAtencion_Click(object sender, EventArgs e)
         {
             if (datosCita.Count > 0)
@@ -236,12 +262,12 @@ namespace AppClinica.Formularios
                 var pacienteAtendido = datosCita.First();
                 datosCita.Remove(pacienteAtendido);
 
-                // Registrar atención en archivo con el estado "Finalizado"
+                
                 RegistrarAtencionEnArchivo(pacienteAtendido, "Finalizado");
 
                 MessageBox.Show($"Atención finalizada para: {pacienteAtendido.Nombre}", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Limpiar panel de atención
+                
                 txtPaciente.Text = string.Empty;
                 txtEdad.Text = string.Empty;
                 txtSintomas.Text = string.Empty;
@@ -250,7 +276,7 @@ namespace AppClinica.Formularios
                 CargarPacientesEnCola();
                 ActualizarContadores();
 
-                // Deshabilitar botones si no hay más pacientes
+                
                 if (pacientesEnCola.Count == 0)
                 {
                     DeshabilitarBotonesAtencion();
