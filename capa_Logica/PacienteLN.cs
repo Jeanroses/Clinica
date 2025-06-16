@@ -21,14 +21,21 @@ namespace capa_Logica
         {
             try
             {
-                if (paciente.Sintomas.ToLower().Contains("fiebre alta") ||
-                    paciente.Sintomas.ToLower().Contains("sangrado") ||
-                    paciente.Sintomas.ToLower().Contains("convulsiones"))
+                if (string.IsNullOrEmpty(paciente.Sintomas))
+                {
+                    Console.WriteLine($"El paciente {paciente.Nombre} no tiene síntomas especificados.");
+                    paciente.Prioridad = EstadoPrioridad.Baja; // Asignar prioridad baja por defecto
+                    return;
+                }
+
+                if (paciente.Sintomas.ToLower().Contains("Fiebre alta") ||
+                    paciente.Sintomas.ToLower().Contains("Sangrado") ||
+                    paciente.Sintomas.ToLower().Contains("Convulsiones"))
                 {
                     paciente.Prioridad = EstadoPrioridad.Urgente;
                 }
-                else if (paciente.Sintomas.ToLower().Contains("fiebre leve") ||
-                         paciente.Sintomas.ToLower().Contains("dolor fuerte"))
+                else if (paciente.Sintomas.ToLower().Contains("Fiebre leve") ||
+                         paciente.Sintomas.ToLower().Contains("Dolor fuerte"))
                 {
                     paciente.Prioridad = EstadoPrioridad.Media;
                 }

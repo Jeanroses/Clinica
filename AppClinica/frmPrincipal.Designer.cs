@@ -45,35 +45,39 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { mantenimientoToolStripMenuItem, atenciónToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(932, 28);
+            menuStrip1.Size = new Size(932, 39);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
             // mantenimientoToolStripMenuItem
             // 
+            mantenimientoToolStripMenuItem.BackColor = SystemColors.ActiveCaption;
             mantenimientoToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { registrarPacienteToolStripMenuItem });
+            mantenimientoToolStripMenuItem.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             mantenimientoToolStripMenuItem.Name = "mantenimientoToolStripMenuItem";
-            mantenimientoToolStripMenuItem.Size = new Size(124, 24);
+            mantenimientoToolStripMenuItem.Size = new Size(195, 35);
             mantenimientoToolStripMenuItem.Text = "Mantenimiento";
             // 
             // registrarPacienteToolStripMenuItem
             // 
             registrarPacienteToolStripMenuItem.Name = "registrarPacienteToolStripMenuItem";
-            registrarPacienteToolStripMenuItem.Size = new Size(210, 26);
+            registrarPacienteToolStripMenuItem.Size = new Size(294, 36);
             registrarPacienteToolStripMenuItem.Text = "Registrar Paciente";
             registrarPacienteToolStripMenuItem.Click += registrarPacienteToolStripMenuItem_Click;
             // 
             // atenciónToolStripMenuItem
             // 
+            atenciónToolStripMenuItem.BackColor = SystemColors.ActiveCaption;
             atenciónToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { atenderPacienteToolStripMenuItem });
+            atenciónToolStripMenuItem.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             atenciónToolStripMenuItem.Name = "atenciónToolStripMenuItem";
-            atenciónToolStripMenuItem.Size = new Size(82, 24);
+            atenciónToolStripMenuItem.Size = new Size(125, 35);
             atenciónToolStripMenuItem.Text = "Atención";
             // 
             // atenderPacienteToolStripMenuItem
             // 
             atenderPacienteToolStripMenuItem.Name = "atenderPacienteToolStripMenuItem";
-            atenderPacienteToolStripMenuItem.Size = new Size(204, 26);
+            atenderPacienteToolStripMenuItem.Size = new Size(284, 36);
             atenderPacienteToolStripMenuItem.Text = "Atender Paciente";
             atenderPacienteToolStripMenuItem.Click += atenderPacienteToolStripMenuItem_Click;
             // 
