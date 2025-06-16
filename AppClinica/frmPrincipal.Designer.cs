@@ -56,7 +56,7 @@
             // registrarPacienteToolStripMenuItem
             // 
             registrarPacienteToolStripMenuItem.Name = "registrarPacienteToolStripMenuItem";
-            registrarPacienteToolStripMenuItem.Size = new Size(224, 26);
+            registrarPacienteToolStripMenuItem.Size = new Size(210, 26);
             registrarPacienteToolStripMenuItem.Text = "Registrar Paciente";
             registrarPacienteToolStripMenuItem.Click += registrarPacienteToolStripMenuItem_Click;
             // 
@@ -70,7 +70,7 @@
             // atenderPacienteToolStripMenuItem
             // 
             atenderPacienteToolStripMenuItem.Name = "atenderPacienteToolStripMenuItem";
-            atenderPacienteToolStripMenuItem.Size = new Size(224, 26);
+            atenderPacienteToolStripMenuItem.Size = new Size(204, 26);
             atenderPacienteToolStripMenuItem.Text = "Atender Paciente";
             atenderPacienteToolStripMenuItem.Click += atenderPacienteToolStripMenuItem_Click;
             // 
@@ -86,6 +86,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "frmPrincipal";
+            Load += frmPrincipal_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ResumeLayout(false);

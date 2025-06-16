@@ -21,5 +21,10 @@ namespace AppClinica
             frmAtenderPaciente frmAtenderPaciente = new frmAtenderPaciente();
             frmAtenderPaciente.ShowDialog();
         }
+
+        private void frmPrincipal_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
