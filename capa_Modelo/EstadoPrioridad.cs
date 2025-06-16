@@ -8,8 +8,8 @@ namespace capa_Modelo
 {
     public enum EstadoPrioridad
     {
-        Urgente,
-        Media,
-        Baja
+        Urgente = 2,
+        Media = 1,
+        Baja = 0
     }
 }

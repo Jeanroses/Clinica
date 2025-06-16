@@ -28,21 +28,23 @@ namespace capa_Logica
                     return;
                 }
 
-                // Clasificación de prioridades
-                if (paciente.Sintomas.ToLower().Contains("fiebre alta") ||
-                    paciente.Sintomas.ToLower().Contains("sangrado") ||
-                    paciente.Sintomas.ToLower().Contains("convulsiones"))
+                // Clasificación de prioridades con lógica mejorada
+                var sintomas = paciente.Sintomas.ToLower();
+                if (sintomas.Contains("fiebre alta") || sintomas.Contains("sangrado") || sintomas.Contains("convulsiones") || sintomas.Contains("sangrado nasal"))
                 {
                     paciente.Prioridad = EstadoPrioridad.Urgente;
                 }
-                else if (paciente.Sintomas.ToLower().Contains("fiebre leve") ||
-                         paciente.Sintomas.ToLower().Contains("dolor fuerte"))
+                else if (sintomas.Contains("fiebre leve") || sintomas.Contains("dolor fuerte") || sintomas.Contains("dolor de cabeza") || sintomas.Contains("mareo"))
                 {
                     paciente.Prioridad = EstadoPrioridad.Media;
                 }
-                else
+                else if (sintomas.Contains("control") || sintomas.Contains("revisión") || sintomas.Contains("control rutina") || sintomas.Contains("sintomas leves"))
                 {
                     paciente.Prioridad = EstadoPrioridad.Baja;
+                }
+                else
+                {
+                    paciente.Prioridad = EstadoPrioridad.Baja; // Por defecto, asignar prioridad baja
                 }
             }
             catch (Exception ex)

@@ -53,14 +53,17 @@ namespace AppClinica.Formularios
                     Id = pacienteADO.ObtenerPacientes().Count + 1, // Generar un ID único
                     Nombre = txtNombres.Text.Trim(),
                     Edad = edad,
-                    Sintomas = txtSintoma.Text.Trim(),
-                    Prioridad = EstadoPrioridad.Baja // La prioridad se asignará posteriormente
+                    Sintomas = txtSintoma.Text.Trim()
                 };
+
+                // Asignar la prioridad correcta
+                PacienteLN pacienteLN = new PacienteLN();
+                pacienteLN.AsignarPrioridad(nuevoPaciente);
 
                 // Guardar el paciente en el archivo JSON
                 pacienteADO.CrearPaciente(nuevoPaciente);
 
-                MessageBox.Show($"Paciente {nuevoPaciente.Nombre} registrado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Paciente {nuevoPaciente.Nombre} registrado exitosamente con prioridad {nuevoPaciente.Prioridad}.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Limpiar los campos
                 LimpiarCampos();

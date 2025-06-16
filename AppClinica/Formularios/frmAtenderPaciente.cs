@@ -37,18 +37,28 @@ namespace AppClinica.Formularios
                 PacienteADO pacienteADO = new PacienteADO();
                 pacientesEnCola = pacienteADO.ObtenerPacientes();
 
-                // Ordenar pacientes por prioridad y luego por orden de llegada
+                // Filtrar pacientes que ya fueron atendidos
+                string rutaArchivo = "atenciones.json";
+                if (System.IO.File.Exists(rutaArchivo))
+                {
+                    string contenido = System.IO.File.ReadAllText(rutaArchivo);
+                    var pacientesAtendidos = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Paciente>>(contenido) ?? new List<Paciente>();
+                    pacientesEnCola = pacientesEnCola.Where(p => !pacientesAtendidos.Any(a => a.Id == p.Id)).ToList();
+                }
+
+                // Ordenar pacientes por prioridad (Urgente > Media > Baja) y luego por orden de llegada
                 pacientesEnCola = pacientesEnCola
                     .OrderByDescending(p => p.Prioridad) // Prioridad (Urgente > Media > Baja)
                     .ThenBy(p => p.Id) // Orden de llegada
                     .ToList();
 
+                // Actualizar el DataGridView
                 dgvDatos.DataSource = null;
                 dgvDatos.DataSource = pacientesEnCola;
 
                 if (dgvDatos.Columns.Contains("Id"))
                 {
-                    dgvDatos.Columns["Id"].Visible = false;
+                    dgvDatos.Columns["Id"].Visible = false; // Ocultar columna ID si existe
                 }
             }
             catch (Exception ex)
@@ -58,7 +68,6 @@ namespace AppClinica.Formularios
         }
         private void ActualizarContadores()
         {
-            // Calcular cantidades por prioridad
             txtUrgente.Text = pacientesEnCola.Count(p => p.Prioridad == EstadoPrioridad.Urgente).ToString();
             txtMedia.Text = pacientesEnCola.Count(p => p.Prioridad == EstadoPrioridad.Media).ToString();
             txtBaja.Text = pacientesEnCola.Count(p => p.Prioridad == EstadoPrioridad.Baja).ToString();
@@ -93,14 +102,8 @@ namespace AppClinica.Formularios
                 var pacienteAtendido = datosCita.First();
                 MessageBox.Show($"Paciente atendido: {pacienteAtendido.Nombre}", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Remover paciente de datos de cita
-                datosCita.Remove(pacienteAtendido);
-
-                // Deshabilitar botones si no hay más pacientes
-                if (datosCita.Count == 0)
-                {
-                    DeshabilitarBotonesAtencion();
-                }
+                // Habilitar el botón "Finalizar Atención"
+                btnFinalizarAtencion.Enabled = true;
             }
             else
             {
@@ -115,15 +118,37 @@ namespace AppClinica.Formularios
                 var pacienteCancelado = datosCita.First();
                 MessageBox.Show($"Atención cancelada para: {pacienteCancelado.Nombre}", "Cancelación", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Remover paciente de datos de cita y devolverlo a la cola
+                // Registrar atención en archivo como cancelada
+                RegistrarAtencionEnArchivo(pacienteCancelado);
+
+                // Remover paciente de datos de cita
                 datosCita.Remove(pacienteCancelado);
-                pacientesEnCola.Add(pacienteCancelado);
+
+                // Actualizar la cola y cargar el siguiente paciente
+                if (pacientesEnCola.Count > 0)
+                {
+                    var siguientePaciente = pacientesEnCola.First();
+                    datosCita.Add(siguientePaciente);
+                    pacientesEnCola.Remove(siguientePaciente);
+
+                    // Mostrar datos del siguiente paciente en el panel de atención
+                    txtPaciente.Text = siguientePaciente.Nombre;
+                    txtEdad.Text = siguientePaciente.Edad.ToString();
+                    txtSintomas.Text = siguientePaciente.Sintomas;
+                }
+                else
+                {
+                    // Limpiar panel de atención si no hay más pacientes
+                    txtPaciente.Text = string.Empty;
+                    txtEdad.Text = string.Empty;
+                    txtSintomas.Text = string.Empty;
+                }
 
                 // Actualizar DataGridView y contadores
                 CargarPacientesEnCola();
                 ActualizarContadores();
 
-                // Deshabilitar botones si no hay más pacientes
+                // Deshabilitar botones si no hay más pacientes en atención
                 if (datosCita.Count == 0)
                 {
                     DeshabilitarBotonesAtencion();
@@ -154,12 +179,43 @@ namespace AppClinica.Formularios
             btnFinalizarAtencion.Enabled = false;
         }
 
+        private void RegistrarAtencionEnArchivo(Paciente paciente)
+        {
+            try
+            {
+                string rutaArchivo = "atenciones.json";
+                List<Paciente> atenciones = new List<Paciente>();
+
+                // Leer archivo existente
+                if (System.IO.File.Exists(rutaArchivo))
+                {
+                    string contenido = System.IO.File.ReadAllText(rutaArchivo);
+                    atenciones = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Paciente>>(contenido) ?? new List<Paciente>();
+                }
+
+                // Agregar nueva atención
+                atenciones.Add(paciente);
+
+                // Guardar en archivo
+                string nuevoContenido = Newtonsoft.Json.JsonConvert.SerializeObject(atenciones, Newtonsoft.Json.Formatting.Indented);
+                System.IO.File.WriteAllText(rutaArchivo, nuevoContenido);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al registrar atención: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
         private void btnFinalizarAtencion_Click(object sender, EventArgs e)
         {
             if (datosCita.Count > 0)
             {
                 var pacienteAtendido = datosCita.First();
                 datosCita.Remove(pacienteAtendido);
+
+                // Registrar atención en archivo
+                RegistrarAtencionEnArchivo(pacienteAtendido);
 
                 MessageBox.Show($"Atención finalizada para: {pacienteAtendido.Nombre}", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -168,7 +224,15 @@ namespace AppClinica.Formularios
                 txtEdad.Text = string.Empty;
                 txtSintomas.Text = string.Empty;
 
-                DeshabilitarBotonesAtencion();
+                // Actualizar la cola y contadores
+                CargarPacientesEnCola();
+                ActualizarContadores();
+
+                // Deshabilitar botones si no hay más pacientes
+                if (pacientesEnCola.Count == 0)
+                {
+                    DeshabilitarBotonesAtencion();
+                }
             }
             else
             {
